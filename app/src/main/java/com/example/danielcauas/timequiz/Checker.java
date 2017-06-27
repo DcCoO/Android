@@ -32,9 +32,7 @@ public class Checker {
 
     public String find(String s1) {
         for (String s2 : list) {
-            System.out.println("Comparando " + s1 + " com " + s2);
-            if(Util.dist(s1, s2) < 2){
-
+            if(Util.mDist(s1, s2)){
                 return s2;
             }
         }

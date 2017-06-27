@@ -6,17 +6,24 @@ package com.example.danielcauas.timequiz;
 
 public class Util {
 
+    public static boolean mDist(String str1, String str2){
+        str1 = str1.toLowerCase();
+        return str1.equals(str2);
+    }
+
+    /*
     public static int dist(String str1, String str2){
 
-        if(Math.abs(str1.length() - str2.length()) > 2) return 10;
+        int dif = Math.abs(str1.length() - str2.length());
+        if(dif > 2) return 10;
 
         int len = Math.min(str1.length(), str2.length());
         int match = 0;
         for(int i = 0; i < len; i++){
-            if(str1.charAt(i) == str2.charAt(i)) match++;
+            if(str1.charAt(i) != str2.charAt(i)) match++;
         }
 
-        return len - match;
+        return match + dif;
     }
 
     public static int editDist(String str1 , String str2 , int m ,int n) {
@@ -34,4 +41,5 @@ public class Util {
     static int min(int a, int b, int c){
         return Math.min(a, Math.min(b, c));
     }
+    */
 }

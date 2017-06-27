@@ -5,11 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -21,11 +24,22 @@ public class GameActivity extends AppCompatActivity {
 
     private Checker checker;
 
+    private ListView lv1, lv2;
+    private boolean par = false;
+    private ArrayList<String> listImpar, listPar;
+    private ArrayAdapter<String> adapterImpar, adapterPar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         started = false;
+        listImpar = new ArrayList<String>(); listPar = new ArrayList<String>();
+        adapterImpar = new ArrayAdapter<String>(this, R.layout.game_list_view_item, listImpar);
+        adapterPar = new ArrayAdapter<String>(this, R.layout.game_list_view_item, listPar);
+
+        lv1 = (ListView) findViewById(R.id.listView3); lv1.setAdapter(adapterImpar);
+        lv2 = (ListView) findViewById(R.id.listView4); lv2.setAdapter(adapterPar);
 
         InputStream is = null;
         try {
@@ -47,8 +61,19 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String str = GameActivity.this.checker.find(input.getText().toString());
-                System.out.println("Saiu da busca por " + input.getText().toString() + ", achou: " + str);
-                if(!str.equals("")) System.out.print("ACERTOU MIZERAVI");
+                if(!str.equals("")) {
+                    if(par){
+                        listPar.add(str);
+                        adapterPar.notifyDataSetChanged();
+                    }
+                    else{
+                        listImpar.add(str);
+                        adapterImpar.notifyDataSetChanged();
+                    }
+                    input.setText("");
+                    par = !par;
+                }
+                else System.out.println("NAO ACHOU NADA");
             }
 
             @Override
@@ -86,12 +111,4 @@ public class GameActivity extends AppCompatActivity {
             timer = null;
         }
     }
-
-
-
-
-
-
-
-
 }
