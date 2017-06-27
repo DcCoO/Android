@@ -28,15 +28,14 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         ListView l1 = (ListView) findViewById(R.id.listView1);
         ListView l2 = (ListView) findViewById(R.id.listView2);
 
-
         String[] objetos_1 =    {"Marcas de carro",   "Esportes"};
         String[] subobjetos_1 = {"15 marcas em 1:30", "20 esportes em 2:00"};
 
         String[] objetos_2 =    {"Paises do mundo",   "Frutas"};
         String[] subobjetos_2 = {"50 marcas em 3:00", "20 esportes em 1:30"};
-        //new ArrayAdapter<String>()
-        Adapter a1 = new Adapter(objetos_1, subobjetos_1, this);
-        Adapter a2 = new Adapter(objetos_2, subobjetos_2, this);
+
+        CGAdapter a1 = new CGAdapter(objetos_1, subobjetos_1, this);
+        CGAdapter a2 = new CGAdapter(objetos_2, subobjetos_2, this);
         l1.setAdapter(a1);
         l2.setAdapter(a2);
 
@@ -56,15 +55,14 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
 
 
 
-    public class Adapter extends BaseAdapter {
+    public class CGAdapter extends BaseAdapter {
         private String[] mItems;
         private String[] mSubitems;
         private Context mContext;
 
-        public Adapter(String[] items, String[] subitems, Context context) {
+        public CGAdapter(String[] items, String[] subitems, Context context) {
             mItems = items;
             mSubitems = subitems;
-
             mContext = context;
         }
 
