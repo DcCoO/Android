@@ -17,44 +17,45 @@ import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity {
 
-    private TextView time;
+    private TextView time, score;
     private EditText input;
     private CountDownTimer timer;
-    private boolean started;
+    private boolean started = false;
 
     private Checker checker;
+    private String filename;
 
-    private ListView lv1, lv2;
-    private boolean par = false;
-    private ArrayList<String> listImpar, listPar;
-    private ArrayAdapter<String> adapterImpar, adapterPar;
+    private void extractExtras(){
+        Bundle b = getIntent().getExtras();
+
+        filename = b.getString("filename");
+        tempo = b.getInt("tempo");
+        total = b.getInt("total");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        started = false;
-        listImpar = new ArrayList<String>(); listPar = new ArrayList<String>();
-        adapterImpar = new ArrayAdapter<String>(this, R.layout.game_list_view_item, listImpar);
-        adapterPar = new ArrayAdapter<String>(this, R.layout.game_list_view_item, listPar);
 
-        lv1 = (ListView) findViewById(R.id.listView3); lv1.setAdapter(adapterImpar);
-        lv2 = (ListView) findViewById(R.id.listView4); lv2.setAdapter(adapterPar);
+        time = (TextView) findViewById(R.id.textView);
+        score = (TextView) findViewById(R.id.score);
+        input = (EditText) findViewById(R.id.editText);
+
+        extractExtras();
 
         InputStream is = null;
         try {
-            is = getAssets().open("Country.txt");
+            is = getAssets().open(filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         checker = new Checker(is);
-        checker.find("");
+        time.setText(timeToString(tempo));
+        score.setText(getScore());
 
-        Bundle b = getIntent().getExtras();
-        String tipo = b.getString("tipo");
 
-        time = (TextView) findViewById(R.id.textView);
-        input = (EditText) findViewById(R.id.editText);
 
         input.addTextChangedListener(new TextWatcher() {
 
@@ -62,38 +63,35 @@ public class GameActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String str = GameActivity.this.checker.find(input.getText().toString());
                 if(!str.equals("")) {
-                    if(par){
-                        listPar.add(str);
-                        adapterPar.notifyDataSetChanged();
-                    }
-                    else{
-                        listImpar.add(str);
-                        adapterImpar.notifyDataSetChanged();
-                    }
                     input.setText("");
-                    par = !par;
+                    acertos++;
+                    score.setText(getScore());
                 }
-                else System.out.println("NAO ACHOU NADA");
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 GameActivity.this.start();
             }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
     }
+
+
+    private int tempo;
+    private int acertos = 0;
+    private int total;
 
     public void start(){
         if(started) return;
         started = true;
-        time.setText("15");
-        timer = new CountDownTimer(15 * 1000, 1000) {
+        input.setText("");
+        timer = new CountDownTimer(tempo * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText("" + millisUntilFinished / 1000);
+                time.setText(timeToString(millisUntilFinished / 1000));
             }
 
             @Override
@@ -103,6 +101,14 @@ public class GameActivity extends AppCompatActivity {
         };
 
         timer.start();
+    }
+
+    public String timeToString(long time){
+        return String.format("%02d:%02d", (time/60), (time%60));
+    }
+
+    public String getScore(){
+        return acertos + "/" + total;
     }
 
     private void cancel(){

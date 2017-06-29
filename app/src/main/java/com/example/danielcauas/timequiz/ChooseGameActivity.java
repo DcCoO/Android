@@ -24,6 +24,25 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         FillListViews();
     }
 
+    public class GameInfo{
+        String nomeArquivo;
+        int tempo, total;
+
+
+
+        public GameInfo(String na, int tot, int tem){
+            nomeArquivo = na; tempo = tem; total = tot;
+        }
+
+        public GameInfo get(String name){
+            if(name.equals("Marcas de carro")) return new GameInfo("Country.txt", 90, 15);
+            if(name.equals("Esportes")) return new GameInfo("Country.txt", 120, 20);
+            if(name.equals("Paises do mundo")) return new GameInfo("Country.txt", 90, 15);
+            if(name.equals("Marcas de carro")) return new GameInfo("Country.txt", 90, 15);
+            return null;
+        }
+    }
+
     public void FillListViews() {
         ListView l1 = (ListView) findViewById(R.id.listView1);
         ListView l2 = (ListView) findViewById(R.id.listView2);
@@ -32,7 +51,7 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         String[] subobjetos_1 = {"15 marcas em 1:30", "20 esportes em 2:00"};
 
         String[] objetos_2 =    {"Paises do mundo",   "Frutas"};
-        String[] subobjetos_2 = {"50 marcas em 3:00", "20 esportes em 1:30"};
+        String[] subobjetos_2 = {"50 paises em 3:00", "20 frutas em 1:30"};
 
         CGAdapter a1 = new CGAdapter(objetos_1, subobjetos_1, this);
         CGAdapter a2 = new CGAdapter(objetos_2, subobjetos_2, this);
@@ -48,7 +67,30 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(ChooseGameActivity.this, (String)parent.getItemAtPosition(position),Toast.LENGTH_LONG).show();
         Intent i = new Intent(this, GameActivity.class);
-        i.putExtra("tipo", (String)parent.getItemAtPosition(position));
+        String tipo = (String) parent.getItemAtPosition(position);
+        i.putExtra("tipo", tipo);
+
+        if(tipo.equals("Marcas de carro")){
+            i.putExtra("filename", "Country.txt");
+            i.putExtra("total", 15);
+            i.putExtra("tempo", 90);
+        }
+        else if(tipo.equals("Esportes")){
+            i.putExtra("filename", "Country.txt");
+            i.putExtra("total", 20);
+            i.putExtra("tempo", 120);
+        }
+        else if(tipo.equals("Paises do mundo")){
+            i.putExtra("filename", "Country.txt");
+            i.putExtra("total", 50);
+            i.putExtra("tempo", 180);
+        }
+        else if(tipo.equals("Frutas")){
+            i.putExtra("filename", "Country.txt");
+            i.putExtra("total", 20);
+            i.putExtra("tempo", 90);
+        }
+
         startActivity(i);
         finish();
     }

@@ -31,9 +31,12 @@ public class Checker {
     }
 
     public String find(String s1) {
-        for (String s2 : list) {
-            if(Util.mDist(s1, s2)){
-                return s2;
+
+        for(int i = 0, len = list.size(); i < len; i++){
+            if(s1.equals(list.get(i))){
+                s1 = list.get(i);
+                list.remove(i);
+                return s1;
             }
         }
         return "";
