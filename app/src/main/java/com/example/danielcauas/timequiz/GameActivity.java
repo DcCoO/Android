@@ -1,19 +1,19 @@
 package com.example.danielcauas.timequiz;
 
-import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -25,6 +25,8 @@ public class GameActivity extends AppCompatActivity {
 
     private Checker checker;
     private String filename;
+
+
 
     private void extractExtras(){
         Bundle b = getIntent().getExtras();
@@ -56,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
         time.setText(timeToString(tempo));
         score.setText(getScore());
 
-
+        final MediaPlayer scoreSound = MediaPlayer.create(GameActivity.this, R.raw.scorepoint);
 
         input.addTextChangedListener(new TextWatcher() {
 
@@ -67,6 +69,15 @@ public class GameActivity extends AppCompatActivity {
                     input.setText("");
                     acertos++;
                     score.setText(getScore());
+                    if(!scoreSound.isPlaying()) scoreSound.start();
+                    else{
+                        scoreSound.seekTo(0);
+                    }
+                    if(acertos == total){
+                        timer.cancel();
+                        time.setText("Venceu!");
+                        input.setEnabled(false); input.setInputType(InputType.TYPE_NULL);
+                    }
                 }
             }
 
@@ -81,8 +92,36 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        if(MusicController.getInstance(this).playing() && !leaving){
+            MusicController.getInstance(this).stop();
+        }
+    }
+
+    @Override
+    public void onResume(){
+        if(!MusicController.getInstance(this).playing() && !MusicController.getInstance(this).paradoPorOpcao){
+            MusicController.getInstance(this).play();
+        }
+        super.onResume();
+    }
+
+    public boolean leaving = false;
+
+    @Override
     public void onBackPressed(){
+        leaving = true;
         Util.navigate(this, ChooseGameActivity.class);
+    }
+
+    public void musicButtonPress(View view){
+        if(MusicController.getInstance(this).playing()){
+            MusicController.getInstance(this).stop();
+        }
+        else{
+            MusicController.getInstance(this).play();
+        }
     }
 
 
@@ -101,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                time.setText("Done !");
+                time.setText("Perdeu!");
             }
         };
 

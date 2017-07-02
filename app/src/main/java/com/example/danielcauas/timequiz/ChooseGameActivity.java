@@ -71,12 +71,12 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         i.putExtra("tipo", tipo);
 
         if(tipo.equals("Marcas de carro")){
-            i.putExtra("filename", "Country.txt");
+            i.putExtra("filename", "Cars.txt");
             i.putExtra("total", 15);
             i.putExtra("tempo", 90);
         }
         else if(tipo.equals("Esportes")){
-            i.putExtra("filename", "Country.txt");
+            i.putExtra("filename", "Sports.txt");
             i.putExtra("total", 20);
             i.putExtra("tempo", 120);
         }
@@ -86,7 +86,7 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
             i.putExtra("tempo", 180);
         }
         else if(tipo.equals("Frutas")){
-            i.putExtra("filename", "Country.txt");
+            i.putExtra("filename", "Fruit.txt");
             i.putExtra("total", 20);
             i.putExtra("tempo", 90);
         }
@@ -96,8 +96,39 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
     }
 
     @Override
+    public void onPause(){
+        super.onPause();
+        if(MusicController.getInstance(this).playing() && !leaving){
+            MusicController.getInstance(this).stop();
+        }
+    }
+
+    @Override
+    public void onResume(){
+        if(!MusicController.getInstance(this).playing() && !MusicController.getInstance(this).paradoPorOpcao){
+            MusicController.getInstance(this).play();
+        }
+        super.onResume();
+    }
+
+    public boolean leaving = false;
+
+    @Override
     public void onBackPressed(){
+        leaving = true;
         Util.navigate(this, MainActivity.class);
+    }
+
+
+    public void musicButtonPress(View view){
+        if(MusicController.getInstance(this).playing()){
+            MusicController.getInstance(this).stop();
+            MusicController.getInstance(this).paradoPorOpcao = true;
+        }
+        else{
+            MusicController.getInstance(this).play();
+            MusicController.getInstance(this).paradoPorOpcao = false;
+        }
     }
 
 
