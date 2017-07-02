@@ -2,6 +2,8 @@ package com.example.danielcauas.timequiz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
@@ -9,10 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class ChooseGameActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -95,6 +95,11 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         finish();
     }
 
+    @Override
+    public void onBackPressed(){
+        Util.navigate(this, MainActivity.class);
+    }
+
 
 
     public class CGAdapter extends BaseAdapter {
@@ -133,6 +138,15 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
             titleTextView.setText(mItems[position]);
             AppCompatTextView subtitleTextView = (AppCompatTextView)view.findViewById(R.id.list_view_subitem_default);
             subtitleTextView.setText(mSubitems[position]);
+
+            Typeface font = Typeface.createFromAsset(getAssets(), "fonts/arlrbdb.ttf");
+            titleTextView.setTypeface(font);
+            subtitleTextView.setTypeface(font);
+
+            //titleTextView.setShadowLayer(1.5f,-2,2, Color.GRAY);
+            //subtitleTextView.setShadowLayer(1.5f,-2,2, Color.GRAY);
+
+
 
             return view;
         }

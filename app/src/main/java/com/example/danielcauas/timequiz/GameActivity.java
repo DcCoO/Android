@@ -1,5 +1,6 @@
 package com.example.danielcauas.timequiz;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,6 +80,11 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        Util.navigate(this, ChooseGameActivity.class);
+    }
+
 
     private int tempo;
     private int acertos = 0;
@@ -87,7 +93,6 @@ public class GameActivity extends AppCompatActivity {
     public void start(){
         if(started) return;
         started = true;
-        input.setText("");
         timer = new CountDownTimer(tempo * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

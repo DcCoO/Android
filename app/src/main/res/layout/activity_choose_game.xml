@@ -1,22 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.danielcauas.timequiz.ChooseGameActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:orientation="vertical"
+android:background="@color/colorBackground"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.danielcauas.timequiz.ChooseGameActivity">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/listView2"
-        android:divider="@null" />
+    <Space
+        android:id="@+id/space0"
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:divider="@null" />
+    <LinearLayout android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-</android.widget.LinearLayout>
+        <Space
+            android:id="@+id/space1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:divider="@color/colorBackground"
+            android:dividerHeight="10dp"
+            android:footerDividersEnabled="false"
+            android:gravity="center"
+            android:scrollbars="none" />
+
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
+
+        <ListView
+            android:id="@+id/listView2"
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:divider="@color/colorBackground"
+            android:dividerHeight="10dp"
+            android:gravity="center"
+            android:scrollbars="none" />
+
+        <Space
+            android:id="@+id/space3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

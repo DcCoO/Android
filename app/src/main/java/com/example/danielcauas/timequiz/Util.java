@@ -1,5 +1,8 @@
 package com.example.danielcauas.timequiz;
 
+import android.app.Activity;
+import android.content.Intent;
+
 /**
  * Created by Daniel on 24/06/2017.
  */
@@ -9,6 +12,12 @@ public class Util {
     public static boolean mDist(String str1, String str2){
         str1 = str1.toLowerCase();
         return str1.equals(str2);
+    }
+
+    public static void navigate(Activity current, Class destiny){
+        Intent i = new Intent(current, destiny);
+        current.startActivity(i);
+        current.finish();
     }
 
     /*
