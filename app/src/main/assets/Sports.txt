@@ -1,61 +1,61 @@
-artes marciais mistas
-capoeira
-judo
-boxe
-luta
-atletismo
-equitacao
 arremesso de peso
+artes marciais mistas
+atletismo
+atletismo
+automobilismo
+badminton
+bale
+basquete
+beisebol
+bilhar
+boliche
+boxe
+capoeira
+ciclismo
+corfebol
+corrida
+criquete
+equitacao
+esgrima
+fisiculturismo
+futebol
+futebol americano
+futebol de praia
+futsal
+ginastica acrobatica
+ginastica aerobica
+ginastica artistica
+ginastica ritmica
+golfe
+halterofilismo
+handebol
+hipismo
+hoquei
+judo
+lacrosse
 lancamento de dardo
 lancamento de disco
 lancamento de martelo
-corrida
-salto em altura
-salto em distancia
-salto com vara
-triplo salto
-corfebol
-futebol
-futebol de praia
-futebol americano
-hoquei
-beisebol
-softbol
-futsal
-basquete
-volei
-andebol
-polo aquatico
-criquete
-lacrosse
-paintball
-tchoukball
-polo
-bilhar
-automobilismo
+luta
 motovelocidade
-atletismo
-badminton
-boliche
-ciclismo
-esgrima
-fisiculturismo
-ginastica artistica
-ginastica ritmica
-ginastica aerobica
-ginastica acrobatica
-bale
-golfe
-halterofilismo
-hipismo
 natacao
+paintball
 parkour
 patinacao
 pentatlo
-squash
+polo
+polo aquatico
+salto com vara
+salto em altura
+salto em distancia
 skate
+softbol
+squash
 surf
+tchoukball
 tenis
 tenis de mesa
-triatlo
 tiro
+triatlo
+triplo salto
+volei

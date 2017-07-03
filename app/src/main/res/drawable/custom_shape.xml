@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
 android:shape="rectangle">
 <gradient
-    android:startColor="#F2EEB3"
-    android:endColor="#dedaa4"
+    android:startColor="#FFFFFF"
+    android:endColor="#e6e6e6"
     android:angle="270"/>
 
 <corners

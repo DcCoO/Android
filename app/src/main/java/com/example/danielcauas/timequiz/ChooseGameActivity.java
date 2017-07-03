@@ -16,42 +16,28 @@ import android.widget.ListView;
 
 public class ChooseGameActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private ListView l1, l2;
+
+    String[] objetos_1 =    {"Carros",   "Esportes"};
+    String[] subobjetos_1 = {"15 marcas em 1:30", "20 esportes em 2:00"};
+
+    String[] objetos_2 =    {"Paises",   "Frutas"};
+    String[] subobjetos_2 = {"50 paises em 3:00", "20 frutas em 1:30"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_game);
 
         FillListViews();
-    }
+        //UpdateListViews();
 
-    public class GameInfo{
-        String nomeArquivo;
-        int tempo, total;
-
-
-
-        public GameInfo(String na, int tot, int tem){
-            nomeArquivo = na; tempo = tem; total = tot;
-        }
-
-        public GameInfo get(String name){
-            if(name.equals("Marcas de carro")) return new GameInfo("Country.txt", 90, 15);
-            if(name.equals("Esportes")) return new GameInfo("Country.txt", 120, 20);
-            if(name.equals("Paises do mundo")) return new GameInfo("Country.txt", 90, 15);
-            if(name.equals("Marcas de carro")) return new GameInfo("Country.txt", 90, 15);
-            return null;
-        }
+        PersistenceController.showToast(this);
     }
 
     public void FillListViews() {
-        ListView l1 = (ListView) findViewById(R.id.listView1);
-        ListView l2 = (ListView) findViewById(R.id.listView2);
-
-        String[] objetos_1 =    {"Marcas de carro",   "Esportes"};
-        String[] subobjetos_1 = {"15 marcas em 1:30", "20 esportes em 2:00"};
-
-        String[] objetos_2 =    {"Paises do mundo",   "Frutas"};
-        String[] subobjetos_2 = {"50 paises em 3:00", "20 frutas em 1:30"};
+        l1 = (ListView) findViewById(R.id.listView1);
+        l2 = (ListView) findViewById(R.id.listView2);
 
         CGAdapter a1 = new CGAdapter(objetos_1, subobjetos_1, this);
         CGAdapter a2 = new CGAdapter(objetos_2, subobjetos_2, this);
@@ -63,6 +49,32 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
 
     }
 
+    public void UpdateListViews(){
+
+        System.out.println("L1 TEM " + l1.getChildCount() + " FILHOS");
+        for(int i = 0; i < 2; i++){
+            View v = l1.getChildAt(i);
+            if(!PersistenceController.isLevelCompleted(ChooseGameActivity.this, objetos_1[i])){
+                Util.changeShapeColor(v, 0xffffffff, 0xffe6e6e6);
+            }
+            else{
+                Util.changeShapeColor(v, 0xffF2EEB3, 0xffDEDAA4);
+            }
+        }
+
+        System.out.println("L2 TEM " + l2.getChildCount() + " FILHOS");
+
+        for(int i = 0; i < 2; i++){
+            View v = l2.getChildAt(i);
+            if(!PersistenceController.isLevelCompleted(this, objetos_2[i])){
+                Util.changeShapeColor(v, 0xffffffff, 0xffe6e6e6);
+            }
+            else{
+                Util.changeShapeColor(v, 0xffF2EEB3, 0xffDEDAA4);
+            }
+        }
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(ChooseGameActivity.this, (String)parent.getItemAtPosition(position),Toast.LENGTH_LONG).show();
@@ -70,7 +82,7 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         String tipo = (String) parent.getItemAtPosition(position);
         i.putExtra("tipo", tipo);
 
-        if(tipo.equals("Marcas de carro")){
+        if(tipo.equals("Carros")){
             i.putExtra("filename", "Cars.txt");
             i.putExtra("total", 15);
             i.putExtra("tempo", 90);
@@ -80,14 +92,14 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
             i.putExtra("total", 20);
             i.putExtra("tempo", 120);
         }
-        else if(tipo.equals("Paises do mundo")){
+        else if(tipo.equals("Paises")){
             i.putExtra("filename", "Country.txt");
             i.putExtra("total", 50);
             i.putExtra("tempo", 180);
         }
         else if(tipo.equals("Frutas")){
             i.putExtra("filename", "Fruit.txt");
-            i.putExtra("total", 20);
+            i.putExtra("total", 1); //20
             i.putExtra("tempo", 90);
         }
 
@@ -174,8 +186,14 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
             titleTextView.setTypeface(font);
             subtitleTextView.setTypeface(font);
 
-            //titleTextView.setShadowLayer(1.5f,-2,2, Color.GRAY);
-            //subtitleTextView.setShadowLayer(1.5f,-2,2, Color.GRAY);
+            //se nao completou
+
+            if(!PersistenceController.isLevelCompleted(ChooseGameActivity.this, mItems[position].toString())){
+                view.setBackgroundResource(R.drawable.custom_shape);
+            }
+            else{
+                view.setBackgroundResource(R.drawable.custom_shape_completed);
+            }
 
 
 

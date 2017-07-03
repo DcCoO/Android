@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@layout/custom_shape">
+    android:background="@drawable/custom_shape">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/list_view_item_default"

@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
         filename = b.getString("filename");
         tempo = b.getInt("tempo");
         total = b.getInt("total");
+        tipo = b.getString("tipo");
     }
 
     @Override
@@ -69,14 +70,21 @@ public class GameActivity extends AppCompatActivity {
                     input.setText("");
                     acertos++;
                     score.setText(getScore());
-                    if(!scoreSound.isPlaying()) scoreSound.start();
-                    else{
-                        scoreSound.seekTo(0);
-                    }
+
                     if(acertos == total){
+                        MediaPlayer winSound = MediaPlayer.create(GameActivity.this, R.raw.victory);
+                        winSound.start();
+
                         timer.cancel();
                         time.setText("Venceu!");
                         input.setEnabled(false); input.setInputType(InputType.TYPE_NULL);
+                        PersistenceController.save(GameActivity.this, GameActivity.this.tipo);
+                        PersistenceController.prepareToast(GameActivity.this.tipo);
+                    }
+                    else{
+                        if(!scoreSound.isPlaying()) scoreSound.start();
+                        else scoreSound.seekTo(0);
+
                     }
                 }
             }
@@ -128,6 +136,7 @@ public class GameActivity extends AppCompatActivity {
     private int tempo;
     private int acertos = 0;
     private int total;
+    private String tipo;
 
     public void start(){
         if(started) return;

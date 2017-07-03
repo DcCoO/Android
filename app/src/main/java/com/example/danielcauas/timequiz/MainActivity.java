@@ -1,7 +1,12 @@
 package com.example.danielcauas.timequiz;
 
 import android.content.Intent;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.button);
         Typeface font = Typeface.createFromAsset(getAssets(), "fonts/arlrbdb.ttf");
         button.setTypeface(font);
+        //PersistenceController.clearPrefs(this);
+
         if( !MusicController.getInstance(this).paradoPorOpcao )
             MusicController.getInstance(this).play();
     }
@@ -43,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     public void play(View v){
         leaving = true;
         Util.navigate(this, ChooseGameActivity.class);
-        //Toast.makeText(MainActivity.this, "This is my Toast message!", Toast.LENGTH_LONG).show();
     }
 
     public void musicButtonPress(View view){
