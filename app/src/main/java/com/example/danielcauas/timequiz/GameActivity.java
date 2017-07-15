@@ -149,6 +149,7 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                input.setEnabled(false); input.setInputType(InputType.TYPE_NULL);
                 time.setText("Perdeu!");
             }
         };

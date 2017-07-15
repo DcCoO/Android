@@ -99,7 +99,7 @@ public class ChooseGameActivity extends AppCompatActivity implements AdapterView
         }
         else if(tipo.equals("Frutas")){
             i.putExtra("filename", "Fruit.txt");
-            i.putExtra("total", 1); //20
+            i.putExtra("total", 20); //20
             i.putExtra("tempo", 90);
         }
 
